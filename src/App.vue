@@ -1,30 +1,46 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+    <div class="app">
+        <post-form @create="createPost"/>
+        <post-list :posts="posts"/>
+    </div>
 </template>
 
+<script>
+import PostForm from './components/PostForm.vue'
+import PostList from '@/components/PostList.vue'
+
+  export default {
+    components: {
+        PostForm, PostList 
+    },
+      data() {
+          return {
+              posts: [
+                  {id: 1, title: 'JavaScript', body: 'Описание поста'},
+                  {id: 2, title: 'JavaScript 2', body: 'Описание поста 2'},
+                  {id: 3, title: 'JavaScript 3', body: 'Описание поста 3'},
+                  {id: 4, title: 'JavaScript 4', body: 'Описание поста 4'},
+                  {id: 5, title: 'JavaScript 5', body: 'Описание поста 5'},
+                  {id: 6, title: 'JavaScript 6', body: 'Описание поста 6'}
+              ],    
+          }
+      },
+      methods: {
+          createPost(post) {
+                this.posts.push(post);      
+            } 
+        },
+  }
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
+.app {
+    padding: 20px;
 }
 </style>
