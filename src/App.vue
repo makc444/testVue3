@@ -1,6 +1,6 @@
 <template>
     <div class="app">
-        <post-form @create="createPost"/>
+        <post-form @create="createPost" :posts="posts"/>
         <post-list :posts="posts"/>
     </div>
 </template>
@@ -11,19 +11,19 @@ import PostList from '@/components/PostList.vue'
 
   export default {
     components: {
-        PostForm, PostList 
+        PostList, PostForm 
     },
       data() {
-          return {
-              posts: [
-                  {id: 1, title: 'JavaScript', body: 'Описание поста'},
-                  {id: 2, title: 'JavaScript 2', body: 'Описание поста 2'},
-                  {id: 3, title: 'JavaScript 3', body: 'Описание поста 3'},
-                  {id: 4, title: 'JavaScript 4', body: 'Описание поста 4'},
-                  {id: 5, title: 'JavaScript 5', body: 'Описание поста 5'},
-                  {id: 6, title: 'JavaScript 6', body: 'Описание поста 6'}
-              ],    
-          }
+        return {
+          posts: [
+            {id: 1, title: 'JavaScript', body: 'Описание поста'},
+            {id: 2, title: 'JavaScript 2', body: 'Описание поста 2'},
+            {id: 3, title: 'JavaScript 3', body: 'Описание поста 3'},
+            {id: 4, title: 'JavaScript 4', body: 'Описание поста 4'},
+            {id: 5, title: 'JavaScript 5', body: 'Описание поста 5'},
+            {id: 6, title: 'JavaScript 6', body: 'Описание поста 6'}
+          ],    
+        }
       },
       methods: {
           createPost(post) {
