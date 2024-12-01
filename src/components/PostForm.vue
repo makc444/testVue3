@@ -3,7 +3,7 @@
         <div>
             <form @submit.prevent>
                 <h4> Создание поста</h4>
-                <input v-model="post.title" class = "input" type="text" placeholder="Название">
+                <input v-model="post.title" class = "input" type="text" placeholder="Название"> 
                 <input v-model="post.body" class = "input" type="text" placeholder="Описание">
                 <my-button class="btn" @click="createPost">Создать</my-button>
             </form>
