@@ -1,6 +1,9 @@
 <template>
     <div class="app">
-        <post-form @create="createPost"/>
+      <h1>Страница с постами</h1>
+      <!-- <input type="text" v-model.trim="modificationValue"> -->
+      <my-button @click="showDialog" style="margin: 15px 0;">Создать пост</my-button>
+      <my-dialog v-model:show="dialogVisible"><post-form @create="createPost"/></my-dialog>
         <post-list :posts="posts" @remove="removePost"/>
     </div>
 </template>
@@ -22,17 +25,26 @@ import PostList from '@/components/PostList.vue'
             {id: 4, title: 'JavaScript 4', body: 'Описание поста 4'},
             {id: 5, title: 'JavaScript 5', body: 'Описание поста 5'},
             {id: 6, title: 'JavaScript 6', body: 'Описание поста 6'}
-          ],    
+          ],
+          dialogVisible: false,    
+          modificationValue: ''
         }
       },
       methods: {
           createPost(post) {
-                this.posts.push(post);      
+                this.posts.push(post);
+                this.dialogVisible = false;
             },
           removePost(post) {
               this.posts = this.posts.filter(p => p.id !== post.id)
-          } 
-        },
+            }, 
+            showDialog() {
+                this.dialogVisible = true;
+            },
+            async fetchUsers() {
+              
+        }
+      }
   }
 </script>
 
