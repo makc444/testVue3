@@ -13,6 +13,7 @@ import PostList from '@/components/PostList.vue'
 import MyButton from './components/UI/MyButton.vue';
 import axios from 'axios';
 
+
   export default {
     components: {
         PostList, PostForm 
@@ -21,7 +22,8 @@ import axios from 'axios';
         return {
           posts: [],
           dialogVisible: false,    
-          modificationValue: ''
+          modificationValue: '',
+          ispostLoading: false
         }
       },
       methods: {
@@ -37,15 +39,22 @@ import axios from 'axios';
             },
             async fetchPosts() {
               try {
-                const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
-                this.posts = response.data;
-                console.log(response);
+                  setTimeout(async() => {
+                    const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
+                    this.posts = response.data;
+                    
+                  },1000)
+                
               } catch (e) {
                 alert('Ошибка')
               }
             }
+          },
+        mounted() {
+            this.fetchPosts();
+          }
         }
-      }
+    
 </script>
 
 <style>
@@ -53,7 +62,7 @@ import axios from 'axios';
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: rgb(135, 135, 173);
+    background-color: rgb(126, 126, 170);
 }
 
 .app {
