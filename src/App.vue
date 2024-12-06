@@ -1,7 +1,6 @@
 <template>
     <div class="app">
       <h1>Страница с постами</h1>
-      <!-- <input type="text" v-model.trim="modificationValue"> -->
       <my-button @click="showDialog" style="margin: 15px 0;">Создать пост</my-button>
       <my-dialog v-model:show="dialogVisible"><post-form @create="createPost"/></my-dialog>
         <post-list :posts="posts" @remove="removePost"/>
@@ -11,6 +10,8 @@
 <script>
 import PostForm from './components/PostForm.vue'
 import PostList from '@/components/PostList.vue'
+import MyButton from './components/UI/MyButton.vue';
+import axios from 'axios';
 
   export default {
     components: {
@@ -18,14 +19,7 @@ import PostList from '@/components/PostList.vue'
     },
       data() {
         return {
-          posts: [
-            {id: 1, title: 'JavaScript', body: 'Описание поста'},
-            {id: 2, title: 'JavaScript 2', body: 'Описание поста 2'},
-            {id: 3, title: 'JavaScript 3', body: 'Описание поста 3'},
-            {id: 4, title: 'JavaScript 4', body: 'Описание поста 4'},
-            {id: 5, title: 'JavaScript 5', body: 'Описание поста 5'},
-            {id: 6, title: 'JavaScript 6', body: 'Описание поста 6'}
-          ],
+          posts: [],
           dialogVisible: false,    
           modificationValue: ''
         }
@@ -41,11 +35,17 @@ import PostList from '@/components/PostList.vue'
             showDialog() {
                 this.dialogVisible = true;
             },
-            async fetchUsers() {
-              
+            async fetchPosts() {
+              try {
+                const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
+                this.posts = response.data;
+                console.log(response);
+              } catch (e) {
+                alert('Ошибка')
+              }
+            }
         }
       }
-  }
 </script>
 
 <style>
@@ -53,6 +53,7 @@ import PostList from '@/components/PostList.vue'
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background-color: rgb(135, 135, 173);
 }
 
 .app {
