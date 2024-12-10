@@ -1,9 +1,13 @@
 <template>
     <div class="app">
       <h1>Страница с постами</h1>
-      <my-button @click="showDialog" style="margin: 15px 0;">Создать пост</my-button>
+      <div class="app__btns">
+        <my-button @click="showDialog" >Создать пост</my-button>
+        <my-select v-model="selectedSort" :options="sortOptions"></my-select>
+      </div>
       <my-dialog v-model:show="dialogVisible"><post-form @create="createPost"/></my-dialog>
-        <post-list :posts="posts" @remove="removePost"/>
+      <post-list :posts="posts" @remove="removePost" v-if="!isPostLoading"/>
+      <div v-else>Идет загрузка...</div>
     </div>
 </template>
 
@@ -23,7 +27,12 @@ import axios from 'axios';
           posts: [],
           dialogVisible: false,    
           modificationValue: '',
-          ispostLoading: false
+          isPostLoading: false,
+          selectedSort: '',
+          sortOptions: [
+            {value: 'title', name: 'По названию'},
+            {value: 'body', name: 'По описанию'}
+          ]
         }
       },
       methods: {
@@ -39,14 +48,16 @@ import axios from 'axios';
             },
             async fetchPosts() {
               try {
+                this.isPostLoading = true;
                   setTimeout(async() => {
                     const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
                     this.posts = response.data;
-                    
+                    this.isPostLoading = false;
                   },1000)
                 
               } catch (e) {
                 alert('Ошибка')
+              } finally {
               }
             }
           },
@@ -68,4 +79,12 @@ import axios from 'axios';
 .app {
     padding: 20px;
 }
+
+.app__btns {
+    margin: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    border: 3px solid rgb(8, 199, 199);
+}
+
 </style>
