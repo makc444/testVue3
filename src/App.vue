@@ -6,7 +6,7 @@
         <my-select v-model="selectedSort" :options="sortOptions"></my-select>
       </div>
       <my-dialog v-model:show="dialogVisible"><post-form @create="createPost"/></my-dialog>
-      <post-list :posts="posts" @remove="removePost" v-if="!isPostLoading"/>
+      <post-list :posts="sortedPosts" @remove="removePost" v-if="!isPostLoading"/>
       <div v-else>Идет загрузка...</div>
     </div>
 </template>
@@ -16,6 +16,7 @@ import PostForm from './components/PostForm.vue'
 import PostList from '@/components/PostList.vue'
 import MyButton from './components/UI/MyButton.vue';
 import axios from 'axios';
+
 
 
   export default {
@@ -63,8 +64,17 @@ import axios from 'axios';
           },
         mounted() {
             this.fetchPosts();
+          },
+        // computed: {
+        //   sortedPosts() {
+        //     return [...this.posts].sort((post1, post2) => post1[this.selectedSort]?.localeCompare(post2[this.selectedSort]));
+        //   }
+        // },
+        watch: {
+          
           }
         }
+    
     
 </script>
 

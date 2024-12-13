@@ -18,8 +18,8 @@
             }
         },
         methods: {
-            changeOption(option){
-                this.$emit('update:modelValue', options)            }
+            changeOption(event) {
+                this.$emit('update:modelValue', event.target.value);            }
         }
     }
 </script>
