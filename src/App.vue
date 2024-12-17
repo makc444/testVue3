@@ -65,11 +65,11 @@ import axios from 'axios';
         mounted() {
             this.fetchPosts();
           },
-        // computed: {
-        //   sortedPosts() {
-        //     return [...this.posts].sort((post1, post2) => post1[this.selectedSort]?.localeCompare(post2[this.selectedSort]));
-        //   }
-        // },
+        computed: {
+          sortedPosts() {
+            return [...this.posts].sort((post1, post2) => post1[this.selectedSort]?.localeCompare(post2[this.selectedSort]));
+          }
+        },
         watch: {
           
           }
